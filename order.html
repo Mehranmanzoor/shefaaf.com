@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order - Shafaaf Premium Spices</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+        .order-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .product-details {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .product-image {
+            width: 300px;
+            height: 300px;
+            object-fit: contain;
+        }
+
+        .product-info h2 {
+            margin-top: 0;
+        }
+
+        .price-details {
+            margin: 15px 0;
+        }
+
+        .order-form {
+            margin-top: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #3b82f6;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #2563eb;
+        }
+    </style>
+</head>
+<body>
+    <div class="order-container">
+        <div class="product-details">
+            <img id="product-image" class="product-image" src="" alt="Product Image">
+            <div class="product-info">
+                <h2 id="product-name"></h2>
+                <p id="product-description"></p>
+                <div class="price-details">
+                    <span id="original-price" style="text-decoration: line-through; color: #6b7280;"></span>
+                    <span id="discounted-price" style="color: #059669; font-weight: bold;"></span>
+                    <span id="discount-tag" style="background-color: #059669; color: white; padding: 4px 8px; border-radius: 4px; margin-left: 8px;">20% OFF</span>
+                </div>
+            </div>
+        </div>
+
+        <form id="order-form" class="order-form">
+            <div class="form-group">
+                <label for="quantity">Quantity:</label>
+                <input type="number" id="quantity" name="quantity" min="1" value="1" required>
+            </div>
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone:</label>
+                <input type="tel" id="phone" name="phone" required>
+            </div>
+            <div class="form-group">
+                <label for="address">Delivery Address:</label>
+                <textarea id="address" name="address" rows="4" required></textarea>
+            </div>
+            <button type="submit">Place Order</button>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script>
+        // Initialize EmailJS
+        emailjs.init("bIEtXIsYs9QL0SCbj");
+    
+        // Get product details from URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const productName = urlParams.get('name');
+        const productImage = urlParams.get('image');
+        const productDesc = urlParams.get('desc');
+        const originalPrice = parseFloat(urlParams.get('originalPrice'));
+        const discountedPrice = parseFloat(urlParams.get('discountedPrice'));
+    
+        // Set product details in the page
+        document.getElementById('product-name').textContent = productName;
+        document.getElementById('product-image').src = productImage;
+        document.getElementById('product-description').textContent = productDesc;
+        document.getElementById('original-price').textContent = `₹${originalPrice}`;
+        document.getElementById('discounted-price').textContent = `₹${discountedPrice}`;
+    
+        // Handle form submission
+        document.getElementById('order-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+    
+            // Get form data
+            const quantity = parseInt(document.getElementById('quantity').value);
+            const customerName = document.getElementById('name').value;
+            const customerEmail = document.getElementById('email').value;
+            const phoneNumber = document.getElementById('phone').value;
+            const address = document.getElementById('address').value;
+            const discountAmount = originalPrice * 0.2;
+            const finalAmount = discountedPrice * quantity;
+            const orderDate = new Date().toLocaleDateString();
+    
+            // Prepare EmailJS template parameters
+            const templateParams = {
+                to_email: 'shefaaffoods@gmail.com',
+                from_name: customerName,
+                from_email: customerEmail,
+                subject: `New Order from ${customerName}`,
+                customer_name: customerName,
+                customer_email: customerEmail,
+                order_date: orderDate,
+                products: [
+                    {
+                        product_name: productName,
+                        product_quantity: quantity,
+                        product_price: `₹${discountedPrice}`
+                    }
+                ],
+                order_total: `₹${originalPrice * quantity}`,
+                discount_amount: `₹${discountAmount * quantity}`,
+                final_amount: `₹${finalAmount}`,
+                message: `Delivery Address: ${address}\nPhone Number: ${phoneNumber}`,
+                cta_link: 'https://shefaaffoods.com/products.html'
+            };
+    
+            // Send the email
+            emailjs.send('service_fcw2uky', 'template_9nrp0xh', templateParams)
+                .then(function(response) {
+                    console.log('Email sent successfully:', response.status, response.text);
+                    alert('Order placed successfully! We will contact you soon.');
+                    window.location.href = 'products.html';
+                }, function(error) {
+                    console.error('Failed to send email:', error);
+                    alert('Failed to place order. Please try again.');
+                });
+        });
+    </script>
+</body>
+</html>

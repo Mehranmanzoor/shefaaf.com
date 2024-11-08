@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shafaaf - Premium Spices</title>
+  <style>
+    /* CSS styles for the entire website */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+
+    /* Header styles */
+    .header {
+      background-color: white;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+    }
+
+    .header .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .header .nav-items {
+      display: none;
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background-color: white;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+    }
+
+    .header .nav-items.active {
+      display: block;
+    }
+
+    .header .nav-items li {
+      margin: 0;
+      padding: 1rem;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .header .nav-items li:last-child {
+      border-bottom: none;
+    }
+
+    .header .nav-items li a {
+      color: #6b7280;
+      text-decoration: none;
+      transition: color 0.3s ease;
+      display: block;
+    }
+
+    .header .nav-items li a:hover {
+      color: #1a202c;
+    }
+
+    .header .mobile-menu-btn {
+      background-color: transparent;
+      border: none;
+      color: #6b7280;
+      cursor: pointer;
+      display: block;
+      font-size: 1.5rem;
+      padding: 0;
+      z-index: 1001;
+    }
+
+    .header .mobile-menu-btn svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    @media (min-width: 768px) {
+      .header .nav-items {
+        display: flex;
+        position: static;
+        box-shadow: none;
+      }
+      .header .nav-items li {
+        margin-left: 1.5rem;
+        padding: 0;
+        border-bottom: none;
+      }
+      .header .mobile-menu-btn {
+        display: none;
+      }
+    }
+
+    /* Main content styles */
+    .hero {
+      position: relative;
+      height: 400px;
+      background-image: url('/api/placeholder/1200/400');
+      background-size: cover;
+      background-position: center;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: white;
+    }
+
+    .hero-overlay h1 {
+      font-size: 3rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
+
+    .hero-overlay p {
+      font-size: 1.5rem;
+    }
+
+    .product-section {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    .product-section h2 {
+      font-size: 2rem;
+      font-weight: bold;
+      margin-bottom: 2rem;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+      gap: 2rem;
+    }
+
+    @media (min-width: 768px) {
+      .product-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .product-card {
+      background-color: white;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      border-radius: 0.5rem;
+      overflow: hidden;
+    }
+
+    .product-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .product-card-content {
+      padding: 1.5rem;
+    }
+
+    .product-card-content h3 {
+      font-size: 1.25rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+
+    .product-card-content p {
+      color: #6b7280;
+      margin-bottom: 1rem;
+    }
+
+    .product-card-content button {
+      background-color: #3b82f6;
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.375rem;
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .product-card-content button:hover {
+      background-color: #2563eb;
+    }
+
+    /* Footer styles */
+    .footer {
+      background-color: #1a202c;
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+
+    .footer p {
+      margin-bottom: 1rem;
+    }
+
+    .footer-nav {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .footer-nav li {
+      margin: 0.5rem 1rem;
+    }
+
+    .footer-nav li a {
+      color: #a0aec0;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .footer-nav li a:hover {
+      color: #cbd5e0;
+    }
+.product-card img {
+    width: 100%;
+    /* Adjusted to maintain aspect ratio and full visibility */
+    height: 250px; /* Increased for better visibility, adjust as needed */
+    object-fit: contain; /* Changed from 'cover' to 'contain' */
+    transition: transform 0.3s ease; /* Added for hover effect */
+}
+
+/* Optional: Simple Hover Effect for Interactivity */
+.product-card img:hover {
+    transform: scale(1.1); /* Scales the image slightly on hover */
+}
+.price-container {
+  margin: 1rem 0;
+}
+
+.original-price {
+  color: #6b7280;
+  text-decoration: line-through;
+  margin-right: 0.5rem;
+}
+
+.discounted-price {
+  color: #059669;
+  font-weight: bold;
+}
+
+.discount-tag {
+  background-color: #059669;
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  margin-left: 0.5rem;
+}
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="logo">Shefaaf</div>
+    <ul class="nav-items">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="products.html">Products</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="shaf.html">Our Mission</a></li>
+    </ul>
+    <button class="mobile-menu-btn">
+      <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-overlay">
+        <h1>Shefaaf</h1>
+        <p>Let's Eat Healthy</p>
+        <p>Sourced from the finest ingredients</p>
+      </div>
+    </section>
+
+    <section class="product-section">
+      <h2>Our Spice Powders</h2>
+      <div class="product-grid">
+        <div class="product-card">
+          <img src="assets\img\chille.jpg" alt="Red Chili Powder" />
+          <div class="product-card-content">
+            <h3>Red Chili Powder</h3>
+            <p>Freshly ground from the finest chilies.</p>
+            <div class="price-container">
+              <span class="original-price">₹240</span>
+              <span class="discounted-price">₹200</span>
+              <span class="discount-tag">20% OFF</span>
+            </div>
+            <a href="order.html?name=Red%20Chili%20Powder&image=assets\img\chille.jpg&desc=Freshly%20ground%20from%20the%20finest%20chilies.&originalPrice=240&discountedPrice=200" class="button">Shop Now</a>
+     
+          </div>
+        </div>
+  
+        <div class="product-card">
+          <img src="assets\img\tureric.jpg" alt="Turmeric Powder" />
+          <div class="product-card-content">
+            <h3>Turmeric Powder</h3>
+            <p>100% pure and natural turmeric.</p>
+            <div class="price-container">
+              <span class="original-price">₹192</span>
+              <span class="discounted-price">₹160</span>
+              <span class="discount-tag">20% OFF</span>
+            </div>
+            <a href="order.html?name=Turmeric%20Powder&image=assets\img\tureric.jpg&desc=100%25%20pure%20and%20natural%20turmeric.&originalPrice=192&discountedPrice=160" class="button">Shop Now</a>
+              </div>
+        </div>
+  
+        <div class="product-card">
+          <img src="assets\img\funnel.jpg" alt="Fennel Powder" />
+          <div class="product-card-content">
+            <h3>Fennel Powder</h3>
+            <p>Aromatic and flavorful fennel powder.</p>
+            <div class="price-container">
+              <span class="original-price">₹216</span>
+              <span class="discounted-price">₹180</span>
+              <span class="discount-tag">20% OFF</span>
+            </div>
+            <a href="order.html?name=Fennel%20Powder&image=assets\img\funnel.jpg&desc=Aromatic%20and%20flavorful%20fennel%20powder.&originalPrice=216&discountedPrice=180" class="button">Shop Now</a>
+          </div>
+        </div>
+  
+        <div class="product-card">
+          <img src="assets\img\fudina.jpg" alt="Crushed Mint/Pudina" />
+          <div class="product-card-content">
+            <h3>Crushed Mint/Pudina</h3>
+            <p>Our mint is carefully selected, dried, and crushed to retain its potent aroma and flavor.</p>
+            <div class="price-container">
+              <span class="original-price">₹72</span>
+              <span class="discounted-price">₹60</span>
+              <span class="discount-tag">20% OFF</span>
+            </div>
+            <a href="order.html?name=Crushed%20Mint/Pudina&image=assets\img\fudina.jpg&desc=Our%20mint%20is%20carefully%20selected,%20dried,%20and%20crushed%20to%20retain%20its%20potent%20aroma%20and%20flavor.&originalPrice=72&discountedPrice=60" class="button">Shop Now</a>
+          </div>
+        </div>
+  
+        <div class="product-card">
+          <img src="assets\img\kitchen.jpg" alt="Kitchen King Masala" />
+          <div class="product-card-content">
+            <h3>Kitchen King Masala</h3>
+            <p>100% pure and natural.</p>
+            <div class="price-container">
+              <span class="original-price">₹144</span>
+              <span class="discounted-price">₹120</span>
+              <span class="discount-tag">20% OFF</span>
+            </div>
+            <a href="order.html?name=Kitchen%20King%20Masala&image=assets\img\kitchen.jpg&desc=100%25%20pure%20and%20natural.&originalPrice=144&discountedPrice=120" class="button">Shop Now</a>
+          </div>
+        </div>
+  
+        <div class="product-card">
+          <img src="assets\img\corander.jpg" alt="Coriander Powder" />
+          <div class="product-card-content">
+            <h3>Coriander Powder</h3>
+            <p>Indulge in the earthy, warm aroma of our premium Coriander Powder.</p>
+            <div class="price-container">
+              <span class="original-price">₹60</span>
+              <span class="discounted-price">₹50</span>
+              <span class="discount-tag">20% OFF</span>
+            </div>
+            <a href="order.html?name=Coriander%20Powder&image=assets\img\corander.jpg&desc=Indulge%20in%20the%20earthy,%20warm%20aroma%20of%20our%20premium%20Coriander%20Powder.&originalPrice=60&discountedPrice=50" class="button">Shop Now</a>
+          </div>
+        </div>
+  
+        <div class="product-card">
+          <img src="assets\img\green.jpg" alt="Green Cardamom" />
+          <div class="product-card-content">
+            <h3>Green Cardamom</h3>
+            <p>Premium quality green cardamom.</p>
+            <div class="price-container">
+              <span class="original-price">₹3720</span>
+              <span class="discounted-price">₹3100</span>
+              <span class="discount-tag">20% OFF</span>
+            </div>
+            <a href="order.html?name=Green%20Cardamom&image=assets\img\green.jpg&desc=Premium%20quality%20green%20cardamom.&originalPrice=3720&discountedPrice=3100" class="button">Shop Now</a>
+          </div>
+        </div>
+  
+        <div class="product-card">
+          <img src="assets\img\black.jpg" alt="Black Cardamom" />
+          <div class="product-card-content">
+            <h3>Black Cardamom</h3>
+            <p>Premium Cardamom.</p>
+            <div class="price-container">
+              <span class="original-price">₹2400</span>
+              <span class="discounted-price">₹2000</span>
+              <span class="discount-tag">20% OFF</span>
+            </div>
+            <a href="order.html?name=Black%20Cardamom&image=assets\img\black.jpg&desc=Premium%20Cardamom.&originalPrice=2400&discountedPrice=2000" class="button">Shop Now</a>
+          </div>
+        </div>
+  
+        <div class="product-card">
+          <img src="assets\img\dalchein.jpg" alt="Cinnamon" />
+          <div class="product-card-content">
+            <h3>Cinnamon</h3>
+            <p>Premium quality cinnamon.</p>
+            <div class="price-container">
+              <span class="original-price">₹588</span>
+              <span class="discounted-price">₹490</span>
+              <span class="discount-tag">20% OFF</span>
+            </div>
+            <a href="order.html?name=Cinnamon&image=assets\img\dalchein.jpg&desc=Premium%20quality%20cinnamon.&originalPrice=588&discountedPrice=490" class="button">Shop Now</a>
+          </div>
+        </div>
+  
+        <div class="product-card">
+          <img src="assets\img\cumen.jpg" alt="Cumin" />
+          <div class="product-card-content">
+            <h3>Cumin</h3>
+            <p>Premium quality cumin.</p>
+            <div class="price-container">
+              <span class="original-price">₹1020</span>
+              <span class="discounted-price">₹850</span>
+              <span class="discount-tag">20% OFF</span>
+            </div>
+            <a href="order.html?name=Cumin&image=assets\img\cumen.jpg&desc=Premium%20quality%20cumin.&originalPrice=1020&discountedPrice=850" class="button">Shop Now</a>
+          </div>
+        </div>
+  
+        <div class="product-card">
+          <img src="assets\img\cloves.jpg" alt="Cloves" />
+          <div class="product-card-content">
+            <h3>Cloves</h3>
+            <p>Premium quality cloves.</p>
+            <div class="price-container">
+              <span class="original-price">₹1200</span>
+              <span class="discounted-price">₹1000</span>
+              <span class="discount-tag">20% OFF</span>
+            </div>
+            <a href="order.html?name=Cloves&image=assets\img\cloves.jpg&desc=Premium%20quality%20cloves.&originalPrice=1200&discountedPrice=1000" class="button">Shop Now</a>
+          </div>
+        </div>
+  
+        <div class="product-card">
+          <img src="assets\img\blackpepper.jpg" alt="Black Pepper" />
+          <div class="product-card-content">
+            <h3>Black Pepper</h3>
+            <p>Premium quality black pepper.</p>
+            <div class="price-container">
+              <span class="original-price">₹960</span>
+              <span class="discounted-price">₹800</span>
+              <span class="discount-tag">20% OFF</span>
+            </div>
+            <a href="order.html?name=Black%20Pepper&image=assets\img\blackpepper.jpg&desc=Premium%20quality%20black%20pepper.&originalPrice=960&discountedPrice=800" class="button">Shop Now</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  
+   
+  
+  </main>
+
+  <footer class="footer">
+    <p>&copy; 2023 Shefaaf. All rights reserved.</p>
+    <ul class="footer-nav">
+      <li><a href="shifaa.html">Home</a></li>
+      <li><a href="products.html">Products</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="shaf.html">Our Mission</a></li>
+    </ul>
+  </footer>
+
+  <script>
+    // Mobile Navigation Toggle
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+    const navItems = document.querySelector('.nav-items');
+
+    mobileMenuBtn.addEventListener('click', () => {
+      navItems.classList.toggle('active');
+    });
+
+    // Close mobile nav when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!navItems.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+        navItems.classList.remove('active');
+      }
+    });
+
+    // Intersection Observer for animations
+    const observerOptions = {
+      threshold: 0.2,
+      rootMargin: '50px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    // Observe all product cards
+    document.querySelectorAll('.product-card').forEach(card => {
+      observer.observe(card);
+    });
+  </script>
+</body>
+</html>

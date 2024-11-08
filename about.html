@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Shefaaf</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #e67e22;
+            --text-color: #333;
+            --light-bg: #f9f9f9;
+            --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--light-bg);
+        }
+
+        .header {
+            background-color: var(--primary-color);
+            padding: 1rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .nav-items {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-items a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .nav-items a:hover {
+            color: var(--secondary-color);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .mobile-menu-btn svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .nav-items {
+                display: none;
+                position: fixed;
+                top: 0;
+                right: 0;
+                height: 100vh;
+                width: 250px;
+                background-color: var(--primary-color);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1rem;
+                transform: translateX(100%);
+                transition: transform 0.3s ease-in-out;
+            }
+
+            .nav-items.active {
+                display: flex;
+                transform: translateX(0);
+            }
+        }
+
+        /* Rest of your existing styles */
+        .banner-container {
+            margin-top: 60px;
+            width: 100%;
+            height: 300px;
+            overflow: hidden;
+        }
+
+      
+        .banner-container svg {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .content {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+
+        .about-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: var(--card-shadow);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .about-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .section-title {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background-color: var(--secondary-color);
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .value-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: var(--card-shadow);
+            text-align: center;
+        }
+
+        .value-icon {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 1rem;
+            fill: var(--secondary-color);
+        }
+
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            width: 2px;
+            height: 100%;
+            background: var(--secondary-color);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            margin: 2rem 0;
+            position: relative;
+            display: flex;
+            justify-content: flex-start;
+            padding-left: calc(50% + 30px);
+        }
+
+        .timeline-item:nth-child(even) {
+            justify-content: flex-end;
+            padding-right: calc(50% + 30px);
+            padding-left: 0;
+        }
+
+        .timeline-content {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: var(--card-shadow);
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .banner-container {
+                height: 200px;
+            }
+
+            .timeline::before {
+                left: 0;
+            }
+
+            .timeline-item,
+            .timeline-item:nth-child(even) {
+                padding: 0 0 0 2rem;
+                justify-content: flex-start;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">Shefaaf</div>
+        <ul class="nav-items">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="products.html">Products</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="shaf.html">Our Mission</a></li>
+        </ul>
+        <button class="mobile-menu-btn">
+            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+        </button>
+    </header>
+
+    <!-- Rest of your existing HTML content -->
+    <div class="banner-container">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 300">
+            <defs>
+                <linearGradient id="headerGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" style="stop-color:#2c3e50;stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:#3498db;stop-opacity:1" />
+                </linearGradient>
+                <pattern id="spicePattern" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+                    <circle cx="20" cy="20" r="1" fill="#ffffff" opacity="0.2"/>
+                </pattern>
+            </defs>
+            <rect width="1200" height="300" fill="url(#headerGradient)"/>
+            <rect width="1200" height="300" fill="url(#spicePattern)"/>
+            <circle cx="100" cy="150" r="80" fill="#e67e22" opacity="0.1"/>
+            <circle cx="1100" cy="150" r="80" fill="#e67e22" opacity="0.1"/>
+            <text x="600" y="100" font-family="Arial, sans-serif" font-size="48" fill="white" text-anchor="middle" font-weight="bold">SHEFAAF</text>
+            <text x="600" y="160" font-family="Arial, sans-serif" font-size="36" fill="white" text-anchor="middle">About Us</text>
+            <line x1="400" y1="180" x2="800" y2="180" stroke="white" stroke-width="2" opacity="0.5"/>
+            <text x="600" y="220" font-family="Arial, sans-serif" font-size="20" fill="white" text-anchor="middle" opacity="0.9">A Legacy of Quality and Tradition in Spices</text>
+        </svg>
+    </div>
+    <main class="content">
+        <div class="about-card">
+            <h2 class="section-title">Our Story</h2>
+            <p>Shefaaf was established with a vision to bring the authentic taste of premium spices to kitchens worldwide. Our journey began with a simple mission: to source the finest ingredients and maintain their natural goodness through careful processing and packaging.</p>
+            <p>Today, we stand as a testament to quality and innovation in the spice industry, delivering products that meet the highest global standards while preserving traditional flavors.</p>
+        </div>
+
+        <div class="about-card">
+            <h2 class="section-title">Our Values</h2>
+            <div class="values-grid">
+                <div class="value-item">
+                    <h3>Quality</h3>
+                    <p>Commitment to excellence in every product</p>
+                </div>
+                <div class="value-item">
+                    <h3>Innovation</h3>
+                    <p>Continuous improvement in processes and products</p>
+                </div>
+                <div class="value-item">
+                    <h3>Sustainability</h3>
+                    <p>Responsible sourcing and environmental care</p>
+                </div>
+                <div class="value-item">
+                    <h3>Integrity</h3>
+                    <p>Honest and transparent business practices</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="about-card">
+            <h2 class="section-title">Our Impact</h2>
+            <div class="stats-container">
+                <div class="stat-item">
+                    <div class="stat-number">1000+</div>
+                    <p>Farmer Partners</p>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">25+</div>
+                    <p>Districts Served</p>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">2+</div>
+                    <p>Years of Excellence</p>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">100%</div>
+                    <p>Quality Assured</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="about-card">
+            <h2 class="section-title">Quality Assurance</h2>
+            <p>At Shefaaf, quality is not just a promise – it's our foundation. Our state-of-the-art processing facilities and rigorous quality control measures ensure that every product meets international food safety standards:</p>
+            <ul style="margin-left: 2rem; margin-top: 1rem;">
+                <li>ISO 22000:2018 certified facilities</li>
+                <li>HACCP certified processes</li>
+                <li>Regular quality audits and testing</li>
+                <li>Modern processing and packaging technology</li>
+            </ul>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Shefaaf. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navItems = document.querySelector('.nav-items');
+
+        mobileMenuBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            navItems.classList.toggle('active');
+        });
+
+        // Close mobile nav when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!navItems.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+                navItems.classList.remove('active');
+            }
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '50px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Observe all product cards
+        document.querySelectorAll('.product-card').forEach(card => {
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>

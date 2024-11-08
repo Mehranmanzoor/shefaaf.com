@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shafaaf - Premium Spices</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #086e85;
+      --secondary-color: #00bfff;
+      --accent-color: #ffa500;
+      --text-color: #333;
+      --light-gray: #f8f9fa;
+      --white: #ffffff;
+      --font-primary: 'Poppins', sans-serif;
+      --font-display: 'Playfair Display', serif;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: var(--font-primary);
+      line-height: 1.6;
+      color: var(--text-color);
+      overflow-x: hidden;
+    }
+    
+    .container {
+      width: 92%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+    
+    /* Header Styles */
+    header {
+      background-color: var(--white);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      height: 76px; /* Fixed header height */
+    }
+    
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 0;
+      position: relative;
+    }
+    
+    .logo {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      text-decoration: none;
+      letter-spacing: 1px;
+    }
+    
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 6px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.5rem;
+      z-index: 1001;
+    }
+    
+    .nav-toggle span {
+      display: block;
+      width: 25px;
+      height: 2px;
+      background-color: var(--primary-color);
+      transition: all 0.3s ease;
+    }
+    
+    nav {
+      display: flex;
+      align-items: center;
+    }
+    
+    nav ul {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    
+    nav a {
+      color: var(--text-color);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1rem;
+      transition: color 0.3s ease;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+    }
+    
+    nav a:hover {
+      color: var(--primary-color);
+      background-color: rgba(8, 110, 133, 0.1);
+    }
+    
+    /* Hero Section */
+    .hero {
+      margin-top: 76px;
+      min-height: 100vh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, rgba(8, 110, 133, 0.9), rgba(0, 191, 255, 0.9));
+      padding: 4rem 0;
+    }
+    
+    .hero-content {
+      text-align: center;
+      color: var(--white);
+      padding: 2rem;
+      max-width: 800px;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .hero-content h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 8vw, 4.5rem);
+      margin-bottom: 1.5rem;
+      letter-spacing: 2px;
+    }
+    
+    .hero-content p {
+      font-size: clamp(1.2rem, 4vw, 1.8rem);
+      opacity: 0.9;
+      margin-bottom: 2rem;
+    }
+    
+    .cta-button {
+      display: inline-block;
+      padding: 1rem 2rem;
+      background-color: var(--accent-color);
+      color: var(--white);
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 600;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    .cta-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    }
+    
+    /* Features Section */
+    .features {
+      padding: 6rem 0;
+      background-color: var(--light-gray);
+    }
+    
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    
+    .feature-card {
+      background: var(--white);
+      padding: 2rem;
+      border-radius: 1rem;
+      text-align: center;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-10px);
+    }
+    
+    .feature-icon {
+      font-size: 2.5rem;
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+    }
+    
+    /* Products Section */
+    .products {
+      padding: 6rem 0;
+      background-color: var(--white);
+    }
+    
+    .section-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+    
+    .section-header h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 3rem);
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+    }
+    
+    .section-header p {
+      color: #666;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      padding: 2rem 0;
+    }
+    
+    .product-card {
+      background: var(--white);
+      border-radius: 1rem;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+    
+    .product-card:hover {
+      transform: translateY(-10px);
+    }
+    
+    .product-image {
+      height: 250px;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .product-badge {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background-color: var(--accent-color);
+      color: var(--white);
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    
+    .product-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+    
+    .product-card:hover .product-image img {
+      transform: scale(1.1);
+    }
+    
+    .product-info {
+      padding: 1.5rem;
+    }
+    
+    .product-info h3 {
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+      color: var(--primary-color);
+    }
+    
+    .product-info p {
+      font-size: 0.9rem;
+      color: #666;
+      margin-bottom: 1rem;
+    }
+    
+    .product-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    
+    .product-rating {
+      color: var(--accent-color);
+    }
+    
+    .product-price {
+      font-weight: 600;
+      font-size: 1.2rem;
+      color: var(--primary-color);
+    }
+    
+    .btn {
+      display: inline-block;
+      padding: 0.8rem 1.5rem;
+      background-color: var(--primary-color);
+      color: var(--white);
+      text-decoration: none;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+      text-align: center;
+      width: 100%;
+    }
+    
+    .btn:hover {
+      background-color: var(--secondary-color);
+      transform: translateY(-2px);
+    }
+    
+    /* Testimonials Section */
+    .testimonials {
+      padding: 6rem 0;
+      background-color: var(--light-gray);
+    }
+    
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+    
+    .testimonial-card {
+      background: var(--white);
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .testimonial-content {
+      font-style: italic;
+      margin-bottom: 1.5rem;
+    }
+    
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .author-image {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      overflow: hidden;
+    }
+    
+    .author-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    /* Footer */
+    footer {
+      background-color: #1a202c;
+      color: var(--white);
+      padding: 4rem 0 2rem;
+    }
+    
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+    
+    .footer-section h3 {
+      color: var(--secondary-color);
+      margin-bottom: 1.5rem;
+      font-size: 1.2rem;
+      font-family: var(--font-display);
+    }
+    
+    .footer-links {
+      list-style: none;
+    }
+    
+    .footer-links li {
+      margin-bottom: 1rem;
+    }
+    
+    .footer-links a {
+      color: #a0aec0;
+      text-decoration: none;
+      transition: color 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .footer-links a:hover {
+      color: var(--white);
+    }
+    
+    .footer-links i {
+      width: 20px;
+    }
+    
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    
+    .social-links a {
+      color: #a0aec0;
+      font-size: 1.5rem;
+      transition: all 0.3s ease;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    .social-links a:hover {
+      color: var(--white);
+      background-color: var(--primary-color);
+      transform: translateY(-3px);
+    }
+    
+    .newsletter-form {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    
+    .newsletter-form input {
+      flex: 1;
+      padding: 0.8rem;
+      border: none;
+      border-radius: 4px;
+      font-family: var(--font-primary);
+    }
+    
+    .newsletter-form button {
+      padding: 0.8rem 1.5rem;
+      background-color: var(--primary-color);
+      color: var(--white);
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    
+    .newsletter-form button:hover {
+      background-color: var(--secondary-color);
+    }
+    
+    .copyright {
+      text-align: center;
+      padding-top: 2rem;
+      border-top: 1px solid #2d3748;
+      color: #a0aec0;
+      font-size: 0.9rem;
+    }
+    
+    /* Mobile Styles */
+    @media (max-width: 768px) {
+      .nav-toggle {
+        display: flex;
+      }
+    
+      nav {
+        position: fixed;
+        top: 76px; /* Align with bottom of header */
+        right: -100%;
+        width: 80%;
+        height: calc(100vh - 76px); /* Subtract header height */
+        background-color: var(--white);
+        padding: 1.5rem;
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+        transition: right 0.3s ease;
+        overflow-y: auto;
+      }
+    
+      nav.active {
+        right: 0;
+      }
+    
+      nav ul {
+        flex-direction: column;
+        gap: 0;
+      }
+    
+      nav li {
+        border-bottom: 1px solid #eee;
+      }
+    
+      nav li:last-child {
+        border-bottom: none;
+      }
+    
+      nav a {
+        display: block;
+        padding: 1rem;
+        font-size: 1rem;
+      }
+    
+      nav a:hover {
+        background-color: var(--light-gray);
+        color: var(--primary-color);
+      }
+    
+      /* Add overlay when nav is active */
+      body.nav-open::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+      }
+    
+      nav {
+        z-index: 1000;
+      }
+    
+      .hero {
+        padding: 2rem 0;
+      }
+    
+      .hero-content {
+        padding: 1rem;
+      }
+    
+      .features-grid,
+      .products-grid,
+      .testimonials-grid {
+        grid-template-columns: 1fr;
+        padding: 1rem;
+      }
+    
+      .newsletter-form {
+        flex-direction: column;
+      }
+    
+      .footer-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+    
+      .footer-links a {
+        justify-content: center;
+      }
+    
+      .social-links {
+        justify-content: center;
+      }
+    }
+    
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .animate {
+      animation: fadeIn 0.5s ease forwards;
+    }
+    .price-container {
+      margin: 1rem 0;
+    }
+    
+    .original-price {
+      color: #6b7280;
+      text-decoration: line-through;
+      margin-right: 0.5rem;
+    }
+    
+    .discounted-price {
+      color: #059669;
+      font-weight: bold;
+    }
+    
+    .discount-tag {
+      background-color: #059669;
+      color: white;
+      padding: 0.25rem 0.5rem;
+      border-radius: 0.25rem;
+      font-size: 0.875rem;
+      margin-left: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container header-content">
+      <a href="#" class="logo">Shafaaf</a>
+      <button class="nav-toggle" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <nav>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="products.html">Products</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="shaf.html">Our Mission</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-content">
+        <h1>Shafaaf Premium Spices</h1>
+        <p>Let's Eat Healthy</p>
+      </div>
+    </section>
+
+    <section id="products" class="products">
+      <div class="container">
+        <h2>Our Premium Products</h2>
+        <div class="products-grid">
+          <div class="product-card">
+            <div class="product-image">
+              <img src="assets\img\chille.jpg" alt="Chili Powder">
+            </div>
+            <div class="product-info">
+              <h3>Chili Powder</h3>
+              <p>Our signature chili powder made from the finest red chilis.</p>
+              <div class="price-container">
+                <span class="original-price">₹240</span>
+                <span class="discounted-price">₹200</span>
+                <span class="discount-tag">20% OFF</span>
+              </div>
+              <a href="#" class="btn">Learn More</a>
+            </div>
+          </div>
+
+          <div class="product-card">
+            <div class="product-image">
+              <img src="assets\img\cumen.jpg" alt="Cumin Powder">
+            </div>
+            <div class="product-info">
+              <h3>Cumin Powder</h3>
+              <p>Aromatic cumin powder perfect for curries and marinades.</p>
+              <div class="price-container">
+                <span class="original-price">₹1020</span>
+                <span class="discounted-price">₹850</span>
+                <span class="discount-tag">20% OFF</span>
+              </div>
+              <a href="#" class="btn">Learn More</a>
+            </div>
+          </div>
+
+          <div class="product-card">
+            <div class="product-image">
+              <img src="assets\img\tureric.jpg" alt="Turmeric Powder">
+            </div>
+            <div class="product-info">
+              <h3>Turmeric Powder</h3>
+              <p>Pure turmeric powder with vibrant yellow color.</p>
+              <div class="price-container">
+                <span class="original-price">₹192</span>
+                <span class="discounted-price">₹160</span>
+                <span class="discount-tag">20% OFF</span>
+              </div>
+              <a href="#" class="btn">Learn More</a>
+            </div>
+          </div>
+
+          
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-section">
+          <h3>About Shafaaf</h3>
+          <p>Premium quality spices and masalas crafted with tradition and excellence.</p>
+          <p>License No.: 11023230000076</p>
+        </div>
+
+        <div class="footer-section">
+          <h3>Contact Us</h3>
+          <ul class="footer-links">
+            <li><i class="fas fa-phone"></i> +91 99068754119</li>
+            <li><i class="fas fa-envelope"></i> info.shefaaffoods@gmail.com</li>
+            <li><i class="fas fa-map-marker-alt"></i> Frisal, Kulgam, Kashmir 192231, India</li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h3>Follow Us</h3>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="copyright">
+        <p>&copy; 2024 Shafaaf. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile Navigation Toggle
+    const navToggle = document.querySelector('.nav-toggle');
+    const nav = document.querySelector('nav');
+
+    navToggle.addEventListener('click', () => {
+      nav.classList.toggle('active');
+      document.body.classList.toggle('nav-open');
+    });
+
+    // Close mobile nav when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!nav.contains(e.target) && !navToggle.contains(e.target)) {
+        nav.classList.remove('active');
+        document.body.classList.remove('nav-open');
+      }
+    });
+
+    // Intersection Observer for animations
+    const observerOptions = {
+      threshold: 0.2,
+      rootMargin: '50px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    // Observe all product cards
+    document.querySelectorAll('.product-card').forEach(card => {
+      observer.observe(card);
+    });
+  </script>
+</body>
+</html>
